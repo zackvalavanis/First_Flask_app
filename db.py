@@ -54,10 +54,10 @@ def photos_all():
         """
     ).fetchall()
     return [dict(row) for row in rows]
-
+# Create Action
 def photos_create(name, width, height):
     conn = connect_to_db()
-    rows = conn.execute(
+    row = conn.execute(
         """
         INSERT INTO photos (name, width, height)
         VALUES (?, ?, ?)
@@ -66,4 +66,15 @@ def photos_create(name, width, height):
         (name, width, height),
     ).fetchone()
     conn.commit()
-    return dict(rows)
+    return dict(row)
+# Show Action 
+def photos_find_by_id(id):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        SELECT * FROM photos
+        WHERE id = ?
+        """, 
+        (id, ), 
+    ).fetchone()
+    return dict(row)
