@@ -44,3 +44,13 @@ def initial_setup():
 
 if __name__ == "__main__":
     initial_setup()
+
+# Index Action 
+def photos_all():
+    conn = connect_to_db()
+    rows = conn.execute(
+        """
+        SELECT * FROM photos
+        """
+    ).fetchall()
+    return [dict(row) for row in rows]
